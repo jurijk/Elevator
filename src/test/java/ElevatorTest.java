@@ -5,29 +5,6 @@ import java.util.List;
 
 public class ElevatorTest {
 
-//    @BeforeAll
-//    public void beforeTest(){
-//        List<Passenger> cabin = new ArrayList<>();
-//        List<Passenger> passOnFloor = new ArrayList<>();
-//        Passenger pas1 = new Passenger(1, 3);
-//        Passenger pas2 = new Passenger(1, 3);
-//        Passenger pas3 = new Passenger(1, 4);
-//        Passenger pas4 = new Passenger(1, 4);
-//        Passenger pas5 = new Passenger(3, 5);
-//        Passenger pas6 = new Passenger(3, 5);
-//        Passenger pas7 = new Passenger(3, 5);
-//
-//        cabin.add(pas1);
-//        cabin.add(pas2);
-//        cabin.add(pas3);
-//        cabin.add(pas4);
-//
-//        passOnFloor.add(pas5);
-//        passOnFloor.add(pas6);
-//        passOnFloor.add(pas7);
-//
-//    }
-
     @Test
     public void test1(){
         List<Passenger> cabin = new ArrayList<>();
@@ -109,20 +86,10 @@ public class ElevatorTest {
         Passenger pas3 = new Passenger(1, 11);
         Passenger pas4 = new Passenger(1, 11);
 
-        /*Passenger pas5 = new Passenger(4, 5);
-        Passenger pas6 = new Passenger(4, 5);
-        Passenger pas7 = new Passenger(4, 5);
-        Passenger pas8 = new Passenger(4, 5);*/
-
         cabin.add(pas1);
         cabin.add(pas2);
         cabin.add(pas3);
         cabin.add(pas4);
-
-//        passOnFloor.add(pas5);
-//        passOnFloor.add(pas6);
-//        passOnFloor.add(pas7);
-//        passOnFloor.add(pas8);
 
         Elevator elevator = new Elevator();
         elevator.cabin = cabin;
@@ -145,7 +112,6 @@ public class ElevatorTest {
         Passenger pas2 = new Passenger(1, 4);
         Passenger pas3 = new Passenger(1, 4);
         Passenger pas4 = new Passenger(1, 4);
-//        Passenger pas4 = new Passenger(1, 4);
 
         Passenger pas5 = new Passenger(3, 5);
         Passenger pas6 = new Passenger(3, 5);
@@ -190,7 +156,6 @@ public class ElevatorTest {
         passOnFloor.add(pas8);
 
         Elevator elevator = new Elevator();
-//        elevator.cabin = cabin;
         elevator.freeSpace = 5;
         elevator.finalDestination = 11;
         elevator.currentDestination = 0;
