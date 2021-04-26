@@ -39,40 +39,41 @@ public class Elevator {
     }
 
     void stop(List<Passenger> passengerListFromFloor){
+        //System.out.println(freeSpace);
         if(cabin!=null) {
             for (ListIterator<Passenger> listIterator = cabin.listIterator(); listIterator.hasNext();){
                 Passenger passenger = listIterator.next();
                 if (passenger.getNextFloor() == currentFloor) {
-                    listIterator.remove();
+                    listIterator.remove();//высадили пассажира
                     int nextFloorPas = (int) (Math.random() * Main.numberOfFloor);
                     while(nextFloorPas == currentFloor){
                         nextFloorPas = (int) (Math.random() * Main.numberOfFloor);
                     }
-                    passengerListFromFloor.add(new Passenger(currentFloor, nextFloorPas));
+                    passengerListFromFloor.add(new Passenger(currentFloor, nextFloorPas));//добавили пассажира на этаж
                 }
             }
         }
-        freeSpace = 5 - cabin.size();
+        System.out.println(freeSpace);
+        freeSpace = capacity - cabin.size();
+
 
         if (passengerListFromFloor != null) {
             for (ListIterator<Passenger> listIterator = passengerListFromFloor.listIterator(); listIterator.hasNext();){
                 Passenger passenger = listIterator.next();
                 if (isRising){//Едем вверх
                     if (passenger.getNextFloor() > currentFloor && cabin.size() < capacity){
-                        cabin.add(passenger);//добавили пасажира в кабину
+                        cabin.add(passenger);//добавили пасажира в кабину, кому вверх, и
                         listIterator.remove();//удалили пасажира с этажа
                     }
-                }
-                else {
+                } else {
                     if (passenger.getNextFloor() < currentFloor && cabin.size() < capacity){
-                        cabin.add(passenger);//добавили пасажира в кабину
+                        cabin.add(passenger);//добавили пасажира в кабину, кому вниз,
                         listIterator.remove();//удалили пасажира с этажа
                     }
                 }
             }
         }
-        freeSpace = 5 - cabin.size();
-
+        freeSpace = capacity - cabin.size();
     }
 
     void route(Floor[] house){
@@ -103,16 +104,15 @@ public class Elevator {
                 if (flag){
                     isRising = !isRising;
                 }
-            }
-            else{
-                currentDestination = Main.numberOfFloor-1;
+            } else{
+                currentDestination = Main.numberOfFloor-1;//лифт достиг последнего этажа
                 finalDestination = Main.numberOfFloor-1;
                 boolean flag = true;
                 for (int i = currentFloor + 1; i < currentDestination && currentFloor!=Main.numberOfFloor - 1; i++){
                     house[i].button();
                     if(house[i].isUp()) {
                         currentDestination = i; //определили ближайший этаж назначения при
-                        flag = false;           // свободном месте в лифте и движении вверх
+                        flag = false;           // свободном месте в лифте
                         break;
                     } else if(house[i].isDown() || i == Main.numberOfFloor - 1){
                         currentDestination = i;
@@ -123,16 +123,15 @@ public class Elevator {
                     isRising = !isRising;
                 }
             }
-        }
-        else {
-            if (freeSpace == 0) {
+        } else {
+            if (freeSpace == 0) {//полный лифт
                 cabin.sort(pasCompDesc);
                 currentDestination = cabin.get(0).getNextFloor();//ближайший этаж назначения
                 finalDestination = cabin.get(cabin.size() - 1).getNextFloor();//последний этаж в маршруте
                 if(currentDestination == 0){
                     isRising = !isRising;
                 }
-            } else if (freeSpace < 5){
+            } else if (freeSpace < 5){//лифт не заполнен полностью
                 boolean flag = false;
                 cabin.sort(pasCompDesc);
                 currentDestination = cabin.get(0).getNextFloor();//ближайший этаж назначения если кабина не пустая
@@ -141,7 +140,7 @@ public class Elevator {
                     house[i].button();
                     if(house[i].isDown()) {
                         currentDestination = i;//определили ближайший этаж назначения при
-                        flag = false;           // свободном месте в лифте и движении вверх
+                        flag = false;           // свободном месте в лифте
                         break;
                     }
                     else if(i == 0){
@@ -153,14 +152,14 @@ public class Elevator {
                     isRising = !isRising;
                 }
             } else{
-                currentDestination = 0;
+                currentDestination = 0;//лифт пустой и направляется на первый этаж
                 finalDestination = 0;
                 boolean flag = true;
                 for (int i = currentFloor - 1; i > currentDestination && currentFloor!=0; i--){
                     house[i].button();
                     if(house[i].isDown()) {
-                        currentDestination = i;//определили ближайший этаж назначения при
-                        flag = false;          // свободном месте в лифте и движении вверх
+                        currentDestination = i;
+                        flag = false;
                         break;
                     }
                     else if(house[i].isUp() || i == 0){
